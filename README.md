@@ -24,3 +24,4 @@ run main.py
 
 # Screenshot
 ![image](https://user-images.githubusercontent.com/93611007/190886580-916d23d6-5b97-4e89-8084-077abb6b299f.png)
+![image](https://user-images.githubusercontent.com/93611007/190886939-965e3b7e-52ee-423a-9dbe-e2216d6b7b0f.png)
