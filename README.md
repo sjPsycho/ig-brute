@@ -1,3 +1,5 @@
+[![Version](https://img.shields.io/github/pipenv/locked/python-version/sjPsycho/ig-brute)]()
+[![Version](https://img.shields.io/powershellgallery/p/QuickForms?color=red)]()
 # ig-brute
 ### Developped By SJ (SJ#0008)
 ## Usage
