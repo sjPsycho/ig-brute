@@ -12,3 +12,5 @@ run main.py
 
 ***I am not responsible for any of the actions you take while using this program.***
 ***This is only for educational purposes.***
+
+#### If there are iny issues please open a new issue in resp.
