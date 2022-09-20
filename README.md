@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
 input custom discord webhook, proxies, password list, & accounts to brute in data folder.
 
-run main.py
+python main.py
 
 #
 
